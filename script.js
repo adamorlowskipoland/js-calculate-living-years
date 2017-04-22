@@ -1,18 +1,19 @@
 const model = {
-    "inputDate" : document.getElementById('date'),
-    "days" : 0,
+    "inputDate" : document.getElementById('date')
 }
 
 const operator = {
     "countDays" : function() {
-        console.log(model.inputDate.value);
-        var putDate = new Date(model.inputDate.value);
-        var putTime = putDate.getTime();
-        var today = new Date();
-        var now = today.getTime();
+        // time in miliseconds put by user
+        var putTime = new Date(model.inputDate.value).getTime();
+        // time in miliseconds today
+        var now = new Date().getTime();
+        // difference in miliseconds
         var resultTime = now - putTime;
+        // getting number of days from miliseconds
         var resultDays = Math.floor((resultTime / 86400000));
-        console.log(resultDays);
+        // calling display with number of days
+        view.putResult(resultDays);
     },
     "eventListeners" : function() {
         const form = document.getElementById('form');
@@ -26,6 +27,10 @@ const operator = {
 const view = {
     "initDisplay" : function() {
         operator.eventListeners();
+    },
+    "putResult" : function(result) {
+        const output = document.getElementById('output');
+        output.textContent = "You are currently living for " + result + " days. They all count, make your next one count too."
     }
 }
 view.initDisplay();
